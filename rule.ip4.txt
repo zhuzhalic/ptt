@@ -1,0 +1,8 @@
+#iptables -t nat -A POSTROUTING -o ens192 -j MASQUERADE
+#iptables-save >> /etc/iptables/rules.v4
+#chown root:named /etc/bind/zone/
+#systemctl restart
+#useradd -u 1010 sshuser
+#passwd sshuser
+#sshuser ALL=NOPASSWD: ALL
+#gpasswd -a sshuser wheel

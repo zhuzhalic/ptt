@@ -1,0 +1,22 @@
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+[hq]
+hq-srv ansible_host=192.168.100.1
+hq-cli ansible_host=192.168.200.1
+[hq:vars]
+ansible_user=sshuser
+ansible_password=P@ssw0rd
+ansible_port=2026
+[net]
+br-rtr ansible_host=192.168.3.30
+[net:vars]
+ansible_user=net_admin
+ansible_password=P@ssw0rd
+ansible_port=22
+[ecorouter]
+hq-rtr ansible_host=192.168.100.30
+[ecorouter:vars]
+ansible_network_os=ios
+ansible_user=net_admin
+ansible_password=P@ssw0rd
+ansible_connection=network_cli

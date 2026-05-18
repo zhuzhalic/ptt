@@ -1,0 +1,3 @@
+apt-get install -y apache2-htpasswd
+htpasswd –c /etc/nginx/.htpasswd WEB
+vim /etc/nginx/sites-available.d/default.conf

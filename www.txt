@@ -1,0 +1,16 @@
+apt-get install –y lamp-server
+mount /dev/sr0 /mnt/
+cp /mnt/web/index.php /var/www/html
+cp /mnt/web/logo.png /var/www/html
+nano /var/www/html/index.php
+$username = "webc"; 
+$password = "P@ssw0rd"; 
+$dbname = "webdb"; 
+systemctl enable --now MariaDB
+mariadb –u root
+CREATE DATABASE webdb;
+CREATE USER ‘webc’@’localhost’ IDENTIFIED BY ‘P@ssw0rd’;
+GRANT ALL PRIVILEGES ON webdb.* TO ‘webc’@’localhost’ WITH GRANT OPTION;
+EXIT;
+mariadb –u webc –p –D webdb < /mnt/web/dump.sql
+systemctl enable --now httpd2

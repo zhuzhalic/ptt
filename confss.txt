@@ -1,0 +1,7 @@
+apt-get install openssh-server
+systemctl daemod-reload
+port 2026
+maxautht 2
+passwauth yes
+allowus ssh
+banner /etc/openssh/banner

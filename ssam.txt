@@ -1,0 +1,35 @@
+apt-get install -y task-samba-dc
+for service in smb nmb krb5kdc slapd bind; 
+do 
+  systemctl disable $service --now; 
+done
+-
+rm -f /etc/samba/smb.conf
+rm -rf /var/lib/samba
+rm -rf /var/cache/samba
+mkdir -p /var/lib/samba/sysvol
+-
+samba-tool domain provision
+-
+systemctl enable --now samba
+cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
+systemctl restart samba
+systemctl restart network
+-
+kinit administrator@AU-TEAM.IRPO
+-
+samba-tool group add hq
+-
+for i in {1..5}; 
+do
+  samba-tool user add hquser$i P@ssw0rd;
+  samba-tool user setexpiry hquser$i --noexpiry;
+  samba-tool group addmembers "hq" hquser$i;
+done
+-
+hq-cli
+apt-get install -y task-auth-ad-sssd
+apt-get install -y libnss-role
+roleadd hq wheel
+vim /etc/sudoers Cmnd_Alias SHELLCMD = /bin/cat, /bin/grep, /usr/bin/id
+WHEEL_USERS ALL=(ALL:ALL) SHELLCMD

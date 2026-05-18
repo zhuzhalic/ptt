@@ -1,0 +1,6 @@
+apt-get install -y nginx
+nano /etc/nginx/sites-available.d/default.conf
+ln -s /etc/nginx/sites-available.d/default.conf /etc/nginx/sites-enabled.d/
+nginx -t 
+systemctl enable --now nginx
+hq cli hosts 172.16.1.1 web.au-team.irpo ....

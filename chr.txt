@@ -1,0 +1,9 @@
+nano /etc/chrony.conf
+server ntp0.ntp-servers.net iburst prefer minstratum 4 
+local stratum 5
+allow 0.0.0.0/0
+systemctl restart chronyd
+chronyc tracking 
+rtr ntp server 172.16.1.1
+hq /etc/chrony.conf server 172.16.1.1 iburst
+systemctl restart chronyd

@@ -1,0 +1,2 @@
+ntp timezone utc+3 rtr.
+timedatectl set-timezone Europe/Moscow
