@@ -1,3 +1,0 @@
-br-rtr apt install sudo / adduser net_admin / sudoers add 
-
-hq-rtr ospf int tunnel ip ospf mtu-ignore ip ospf point to pom  ip mtu 1400 
