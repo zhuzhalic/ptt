@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e  # Остановка при ошибке
+
+# Установка Samba DC
+apt-get update
+apt-get install -y samba smbclient winbind krb5-user krb5-config
+
+# Остановка и отключение ненужных служб
+for service in smb nmb krb5kdc slapd bind9; do
+    systemctl disable $service --now 2>/dev/null || true
+done
+
+# Очистка старых конфигов
+rm -f /etc/samba/smb.conf
+rm -rf /var/lib/samba
+rm -rf /var/cache/samba
+mkdir -p /var/lib/samba/sysvol
+
+# Провижн домена (без интерактивного ввода)
+samba-tool domain provision --realm=AU-TEAM.IRPO --domain=AU-TEAM --adminpass='P@ssw0rd' --server-role=dc 
+
+# Включение и запуск samba
+systemctl enable --now samba-ad-dc  # в Debian служба может называться samba-ad-dc
+cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
+
+# Перезагрузка сети (опционально, но лучше перезагрузить сервер)
+systemctl restart networking || systemctl restart systemd-networkd
+
+# Получение тикета Kerberos
+echo 'P@ssw0rd' | kinit administrator@AU-TEAM.IRPO
+
+# Создание группы HQ
+samba-tool group add hq
+
+# Создание 5 пользователей
+for i in {1..5}; do
+    samba-tool user add hquser$i StrongPass123!
+    samba-tool user setexpiry hquser$i --noexpiry
+    samba-tool group addmembers "hq" hquser$i
+done
+
+echo "Готово! Рекомендуется перезагрузить сервер."
