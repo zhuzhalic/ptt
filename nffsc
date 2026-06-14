@@ -1,3 +1,4 @@
+#!/bin/bash
 apt-get install -y nfs-utils nfs-clients
 mkdir /mnt/nfs 
 chmod 777 /mnt/nfs 
