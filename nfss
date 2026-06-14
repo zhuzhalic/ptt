@@ -1,0 +1,6 @@
+apt-get install -y nfs-server nfs-utils
+mkdir /raid/nfs
+chmod 777 /raid/nfs
+echo "/raid/nfs   192.168.200.0/24(rw,no_root_squash)" >> /etc/exports
+exportfs -arv
+systemctl enable --now nfs-server
