@@ -1,0 +1,7 @@
+#!/bin/bash
+apt-get install –y docker-engine docker-compose-v2
+systemctl enable --now docker.service
+mount /dev/sr0 /mnt/
+docker load < /mnt/docker/site_latest.tar
+docker load < /mnt/docker/mariadb_latest.tar
+docker compose up -d
