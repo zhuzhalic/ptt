@@ -1,3 +1,4 @@
+#!/bin/bash
 apt-get install -y nfs-server nfs-utils
 mkdir /raid/nfs
 chmod 777 /raid/nfs
