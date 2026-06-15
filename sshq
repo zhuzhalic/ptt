@@ -2,8 +2,9 @@ ansub.cfg
 #gather_timeout=10 uncomment this to disavle ssh key host 
 host_key_checking = False
 
-apt-get install –y python3-module-pip
-pip3 install ansible-pylibssh 
+#apt-get install –y python3-module-pip
+#pip3 install ansible-pylibssh 
+apt-get install ansible -y 
 ip li set mtu 1200 dev ens192
 
 hq-cli
@@ -11,3 +12,7 @@ apt-get install python python-module-yaml python-module-jinja2 python-modules-js
 
 hq-rtr
 security none
+
+port 22 
+allowusers net_admin
+passwordauth - br-rtr
