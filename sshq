@@ -3,15 +3,11 @@ ansub.cfg
 host_key_checking = False
 
 apt-get install –y python3-module-pip
-pip3 install ansible-pylibssh -br-srv
+pip3 install ansible-pylibssh 
 ip li set mtu 1200 dev ens192
 
+hq-cli
 apt-get install python python-module-yaml python-module-jinja2 python-modules-json python-modules-distutils -y
 
-[all:vars]
-ansible_user=sshuser
-ansible_password=P@ssw0rd
-ansible_port=2026
-[local]
-hq-srv ansible_host=192.168.100.1
-
+hq-rtr
+security none
