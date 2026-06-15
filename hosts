@@ -8,7 +8,7 @@ ansible_user=sshuser
 ansible_password=P@ssw0rd
 ansible_port=2026
 [net]
-br-rtr ansible_host=192.168.3.30
+br-rtr ansible_host=10.10.10.14
 [net:vars]
 ansible_user=net_admin
 ansible_password=P@ssw0rd
